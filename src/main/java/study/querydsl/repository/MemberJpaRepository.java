@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.util.StringUtils.hasText;
-import static org.springframework.util.StringUtils.isEmpty;
 import static study.querydsl.entity.QMember.member;
 import static study.querydsl.entity.QTeam.team;
 
@@ -47,9 +46,9 @@ public class MemberJpaRepository {
                 .fetch();
     }
 
-    public List<Member> findByUsername(String username) {
+    public List<Member> findByUsername(String userName) {
         return em.createQuery("select m from Member m where m.userName = :userName", Member.class)
-                .setParameter("userName", username)
+                .setParameter("userName", userName)
                 .getResultList();
     }
 
@@ -64,8 +63,8 @@ public class MemberJpaRepository {
     //회원명, 팀명, 나이(ageGoe, ageLoe)
     public List<MemberTeamDto> searchByBuilder(MemberSearchCondition condition) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (hasText(condition.getUsername())) {
-            builder.and(member.userName.eq(condition.getUsername()));
+        if (hasText(condition.getUserName())) {
+            builder.and(member.userName.eq(condition.getUserName()));
         }
         if (hasText(condition.getTeamName())) {
             builder.and(team.name.eq(condition.getTeamName()));
@@ -99,14 +98,14 @@ public class MemberJpaRepository {
                         team.name))
                 .from(member)
                 .leftJoin(member.team, team)
-                .where(usernameEq(condition.getUsername()),
+                .where(usernameEq(condition.getUserName()),
                         teamNameEq(condition.getTeamName()),
                         ageGoe(condition.getAgeGoe()),
                         ageLoe(condition.getAgeLoe()))
                 .fetch();
     }
-    private BooleanExpression usernameEq(String username) {
-        return hasText(username) ? member.userName.eq(username) : null;
+    private BooleanExpression usernameEq(String userName) {
+        return hasText(userName) ? member.userName.eq(userName) : null;
     }
 
     private BooleanExpression teamNameEq(String teamName) {
@@ -126,7 +125,7 @@ public class MemberJpaRepository {
         return queryFactory
                 .selectFrom(member)
                 .leftJoin(member.team, team)
-                .where(usernameEq(condition.getUsername()),
+                .where(usernameEq(condition.getUserName()),
                         teamNameEq(condition.getTeamName()),
                         ageGoe(condition.getAgeGoe()),
                         ageLoe(condition.getAgeLoe()))
