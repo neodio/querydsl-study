@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
   datasource:
 #    url: jdbc:h2:~/querydsl # H2(Embedded)
     url: jdbc:h2:mem:querydsl # H2(In-Memory)
