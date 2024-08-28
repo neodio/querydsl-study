@@ -7,8 +7,9 @@
 https://www.inflearn.com/course/querydsl-%EC%8B%A4%EC%A0%84/dashboard
 
 # 환경
- - java 17
- - spring boot 3.2.5
+- java 17
+- Gradle 8.7
+- Spring boot 3.2.5
 
 # 구동
 local: http://localhost:8080
