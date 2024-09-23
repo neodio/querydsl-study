@@ -1,6 +1,6 @@
 # 실전! Querydsl
 
-실전! Querydsl
+인프런 - 실전! Querydsl 스터디
 
 강의 학습 내용 실습 자료
 
